@@ -40,10 +40,11 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + [
-    "rest_framework_swagger",
+    "rest_framework",
     "ordered_model",
     "django_extensions",
     "task.apps.TaskConfig",
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ ROOT_URLCONF = "todo_api.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -75,6 +76,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "todo_api.wsgi.application"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 50,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 
 # Database
@@ -105,6 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "users.User"
 
 
 # Internationalization
