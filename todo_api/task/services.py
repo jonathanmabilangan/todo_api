@@ -1,13 +1,16 @@
 from django.db import transaction
 
+from users.models import User
+
 from .models import Task
 from .selectors import get_task
 
 
 @transaction.atomic
-def create_task(task_name: str, task_description: str) -> Task:
+def create_task(user: User, task_name: str, task_description: str) -> Task:
     try:
         task = Task.objects.create(
+            user=user,
             task_name=task_name,
             task_description=task_description,
             status=Task.Status.TO_DO,
@@ -18,14 +21,12 @@ def create_task(task_name: str, task_description: str) -> Task:
 
 
 @transaction.atomic
-def update_task(pk: int, **kwargs) -> Task:
+def update_task(pk: int, user: User, **kwargs) -> Task:
     task = get_task(task_id=pk)
     for field, value in kwargs.items():
-        if field in ["task_name", "task_description", "status"]:
+        if field in ["user", "task_name", "task_description", "status", "order"]:
             setattr(task, field, value)
             task.save()
-        # else:
-        #     return "Failed to save."
     return task
 
 

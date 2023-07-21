@@ -51,7 +51,10 @@ python manage.py createsuperuser
 
 ### Trying the project's API endpoint
 
-    - Generate a x-csrf token through postman
+- Through swagger:
+    - Create an admin account and use it in basicAuth
+
+
 
 
 
