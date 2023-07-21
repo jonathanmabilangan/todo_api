@@ -24,7 +24,7 @@ def create_task(user: User, task_name: str, task_description: str) -> Task:
 def update_task(pk: int, user: User, **kwargs) -> Task:
     task = get_task(task_id=pk)
     for field, value in kwargs.items():
-        if field in ["user", "task_name", "task_description", "status"]:
+        if field in ["user", "task_name", "task_description", "status", "order"]:
             setattr(task, field, value)
             task.save()
     return task

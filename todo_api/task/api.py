@@ -17,6 +17,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "task_name",
             "task_description",
             "status",
+            "order",
         )
 
 
